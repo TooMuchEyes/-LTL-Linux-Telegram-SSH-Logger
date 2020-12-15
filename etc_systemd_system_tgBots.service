@@ -1,0 +1,20 @@
+[Unit]
+
+Description=Linux service, which notify u auth.log changing.
+After=syslog.target
+After=network.target
+
+[Service]
+
+Type=simple
+WorkingDirectory=/opt
+User=root
+Group=root
+ExecStart=/usr/local/bin/tgBots
+PIDFile=/run/tgBots.pid
+TimeoutSec=300
+Restart=always
+
+[Install]
+
+WantedBy=multi-user.target
