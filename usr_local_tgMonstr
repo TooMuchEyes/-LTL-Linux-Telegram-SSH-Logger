@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CHAT_ID=11111111 ### CHANGE ME
+BOT_ID=21212:cad ### CHANGE ME
+
+# response in var $REPLY
+function rawurlencode() {
+  local string="${1}"
+  local strlen=${#string}
+  local encoded=""
+  local pos c o
+
+  for (( pos=0 ; pos<strlen ; pos++ )); do
+     c=${string:$pos:1}
+     case "$c" in
+        [-_.~a-zA-Z0-9] ) o="${c}" ;;
+        * ) printf -v o '%%%02x' "'$c"
+     esac
+     encoded+="${o}"
+  done
+  REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
+}
+
+
+rawurlencode "$1"
+
+echo $1
+curl -s "https://api.telegram.org/bot{$BOT_ID}/sendMessage?chat_id={$CHAT_ID}&text={$REPLY}"  2>&1 >/dev/null
