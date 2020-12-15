@@ -1,0 +1,2 @@
+#!/bin/sh
+tail -n 1 -f /var/log/auth.log | xargs -d\\n -n1 /usr/local/bin/tgMonstr
